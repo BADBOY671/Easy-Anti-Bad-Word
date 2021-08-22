@@ -1,13 +1,27 @@
 const random = require('random-password-pkg')
 const db = require('quick.db')
-
+const Discord = require('discord.js')
+const client = new Discord.Client()
 class badword {
   constructor(options) {
     if (!options.client) {
       throw new Error('The Discord.Client() integration is required.');
     };
 
-    
+    if(!options.addcmd){
+        throw new Error(`I Can't Found Add Command`)
+    }
+
+      if(!options.list){
+        throw new Error(`I Can't Found List Command`)
+    }
+      if(!options.remove){
+        throw new Error(`I Can't Found Remove Command`)
+    }
+
+      if(!options.remove_all){
+        throw new Error(`I Can't Found Remove All Command`)
+    }
       
     if (!options.prefix) {
       throw new Error('The bot prefix is required.');
@@ -24,17 +38,25 @@ class badword {
 
     this.permissions = options.permissions || options.permissions;
 
-          
+          this.addcmd = options.addcmd || options.addcmd;
+this.list = options.list || options.list;
+              
+      this.remove = options.remove || options.remove;
+
+    this.remove_all = options.remove_all || options.remove_all;
+      
   }
+
+    
 
       async onMessage(message) {
     if (!message) {
-      throw new Error('Discord-Reports - The message is required on the onMessage function.');
+      throw new Error('The message is required on the onMessage function.');
     };
 
           const args = message.content.split(' ')
           const command = args[0]
-          if(command === this.prefix + "add"){
+          if(command === this.prefix + this.addcmd){
                         if(!message.member.hasPermission(this.permissions)) return message.channel.send(`You Dont Have Permissions To Use This ${command} Command`)
               const aa = message.content.split(' ').slice(1).join(' ')
               const id = random(8)
@@ -48,13 +70,22 @@ if(!aa) return message.channel.send(`I Can't Found AnyThing?!`)
               let database = db.fetch(`word_${message.guild.id}`)
  if(database && database.find(x => x.word === aa.toLowerCase())) return message.channel.send(`This Word it's already on database.`)
               
+         var embed = new Discord.MessageEmbed()  
+              .setAuthor(message.author.tag, message.author.avatarURL({dynimc: true}))
+             .setTitle(`New Word Add To The List`)
+              .setDescription(`
+Word: ${aa} \n ID: ${id.toLowerCase()} \n By: <@${message.author.id}>
+
+`)
+              .setTimestamp()
+              .setFooter(`By: ${message.author.tag}`)
               
-message.channel.send(`Done Add ${aa} To Bad Word List`).then(() => {
+message.channel.send(embed).then(() => {
     db.push(`word_${message.guild.id}`, data)
 })
               
      } else {
-              if(command === this.prefix + "remove"){
+              if(command === this.prefix + this.remove){
                   if(!message.member.hasPermission(this.permissions)) return message.channel.send(`You Dont Have Permissions To Use This ${command} Command`)
 
           const args = message.content.split(' ')
@@ -82,7 +113,7 @@ if(database) {
                   
                       } else {
                   if(
-                    command === this.prefix +"list"){
+                    command === this.prefix +this.list){
 
                       let database = db.get(`word_${message.guild.id}`) 
   if(database === null) return message.channel.send(`It's looks ur auto delete bad word it's empty`)
@@ -105,7 +136,7 @@ list.push(`Word: ${x.word}
                       
                       
                     } else {
-                      if(command === this.prefix + "remove-all"){
+                      if(command === this.prefix + this.remove_all){
                           if(!message.member.hasPermission(this.permissions)) return message.channel.send(`You Dont Have Permissions To Use This ${command} Command`)
                           const data = await db.fetch(`word_${message.guild.id}`)
                           if(data === null) return message.channel.send(`it's looks ur auto delete bad word it's empty`)
@@ -118,10 +149,16 @@ message.channel.send(`Dont Remove ${data.length} Words`).then(() => {
                     }
                       }
      }
-}      
+}
+    
+        
+    
+    
+    
+    
       }
 
 
 
 
-module.exports = 
+module.exports = badword
