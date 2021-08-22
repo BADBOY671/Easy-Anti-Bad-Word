@@ -1,4 +1,4 @@
-Hi <br>
+Hi 👋  <br>
 
 Easy Anti Bad Word Pkg<br><br>
 
@@ -45,6 +45,11 @@ client.on('message', message => {
 ```
 <br>
 <br>
+
+<h3>Notes 📝: <br> <br>
+Make Sure You Have Install Quick.db<br>
+const db = require('quick.db')<br>
+</h3>
 
 Any Bug<br>
 
