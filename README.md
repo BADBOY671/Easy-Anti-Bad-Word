@@ -27,8 +27,10 @@ permissions: MANAGE_GUILD
 
 Any Bug<br>
 
-Contact With Me Discord: `
+Contact With Me Discord: 
+`
 B A D B O Y #8888
+`
 <br>
 <br>
 <a href="">Npm</a>
