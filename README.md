@@ -48,7 +48,10 @@ client.on('message', message => {
 
 <h3>Notes 📝: <br> <br>
 Make Sure You Have Install Quick.db<br>
-const db = require('quick.db')<br>
+`
+const db = require('quick.db')
+`
+<br>
 </h3>
 
 Any Bug<br>
