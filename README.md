@@ -6,7 +6,11 @@ How To Install It In Your Project:?<br><br>
 `
 const antiword = require('easy-anti-bad-word')
 `
-Basic Settings 🧢<br><br>
+<br>
+<br>
+Basic Settings 🧢
+
+<br><br>
 
 ```
 const word = require('easy-anti-bad-word')
