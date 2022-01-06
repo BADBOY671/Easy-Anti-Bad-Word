@@ -12,7 +12,7 @@ Basic Settings 🧢
 
 <br><br>
 
-```
+```js
 
 const word = require('easy-anti-bad-word')
 const antiword = new word({
